@@ -11,5 +11,5 @@ Tajawal Developer Challenge - FE Developer
 	<li>Open command line terminal and run the following commands</li>
 	<li><code>npm install</code></li>
 	<li><code>node server.js</code></li>
-	<li>Open http://localhost:8080/ in browser window</li>
+	<li>Open <a href="http://localhost:8080/">http://localhost:8080/</a> in browser window</li>
 </ul>
