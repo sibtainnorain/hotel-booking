@@ -21,13 +21,11 @@ angular
                     $scope.gridOptions.data = [];
                     return;
                 }
-
                 let fromFilter = moment(dateFrom);
                 let toFilter = moment(dateTo);
 
                 hotelsFactory.getData().then(function (responseData) {
                     hotels = responseData.data.hotels;
-
                     $scope.nights = toFilter.diff(fromFilter, 'days');
                     let filteredHotels = [];
 
