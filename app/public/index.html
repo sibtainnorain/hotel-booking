@@ -7,9 +7,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/angular-data-grid.bootstrap.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/controllers/hotelController.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#priceDisplay").html('0 AED');
+            $("#priceSlider").slider({
+                animate: true,
+                value: 1,
+                min: 0,
+                max: 1000,
+                step: 10,
+                slide: function (event, ui) {
+                    $("#price").val(ui.value);
+                    $("#priceDisplay").html(ui.value + " AED");
+                }
+            });
+        });
+    </script>
 </head>
 
 <body ng-app="hotelSearchApp" ng-controller="hotelsController" ng-cloak>
@@ -64,6 +82,13 @@
                         <div class="col-md-2">
                             <input type="text" class="form-control order-search-box" placeholder="Hotel Name" ng-change="gridActions.filter()" ng-model="name"
                                 filter-by="name" filter-type="text">
+                            <br>
+                            <label>Price Filter</label>
+                            <div id="priceSlider"></div>
+                            <br>
+                            <span id="priceDisplay"></span>
+                            <input type="hidden" id="price" ng-change="gridActions.filter()" ng-model="price"
+                            filter-by="price" filter-type="text">
                         </div>
                         <div class="col-md-8">
                             <div class="col-md-6" grid-item>
@@ -89,7 +114,6 @@
         </div>
     </div>
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <!-- load jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
@@ -99,5 +123,6 @@
 <script src="https://angular-data-grid.github.io/dist/dataGrid.js"></script>
 <script src="moment/moment.min.js"></script>
 <script src="moment/angular-moment.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 
 </html>
