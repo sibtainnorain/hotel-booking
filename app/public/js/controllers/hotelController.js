@@ -24,7 +24,7 @@ angular
 
                 let fromFilter = moment(dateFrom);
                 let toFilter = moment(dateTo);
-                
+
                 hotelsFactory.getData().then(function (responseData) {
                     hotels = responseData.data.hotels;
 
@@ -38,16 +38,8 @@ angular
                             let availabilityFrom = moment(availability[j].from, "DD-MM-YYYY");
                             let availabilityTo = moment(availability[j].to, "DD-MM-YYYY");
 
-                            console.log(fromFilter);
-                            console.log(availabilityFrom);
-
-                            console.log(toFilter);
-                            console.log(availabilityTo);
-
                             if (fromFilter.isBetween(availabilityFrom, availabilityTo, 'days', '[]') && toFilter.isBetween(availabilityFrom, availabilityTo, 'days', '[]')) {
                                 hotels[i].price = hotels[i].price * $scope.nights;
-                                console.log(j);
-                                console.log(hotels[i].name);
                                 filteredHotels.push(hotels[i]);
                                 break;
                             }
