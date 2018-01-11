@@ -16,11 +16,10 @@ angular
                 $scope.error = false;
                 $scope.nights = 0;
 
-                if (!validDates(dateFrom, dateTo)) {
-                    $scope.error = true;
-                    $scope.gridOptions.data = [];
+                if (!validDates($scope, dateFrom, dateTo)) {
                     return;
                 }
+
                 let fromFilter = moment(dateFrom);
                 let toFilter = moment(dateTo);
 
@@ -58,17 +57,23 @@ angular
         }
     });
 
-function validDates(dateFrom, dateTo) {
+function validDates($scope, dateFrom, dateTo) {
+    var isValid = true;
+
     if (dateFrom == undefined || dateTo == undefined) {
-        return false;
+        isValid = false;
     }
 
     let fromFilter = moment(dateFrom);
     let toFilter = moment(dateTo);
 
     if (fromFilter.isSame(toFilter) || fromFilter.isAfter(toFilter) || toFilter.isBefore(fromFilter)) {
-        return false;
+        isValid = false;
     }
     
-    return true;
+    if (!isValid) {
+        $scope.error = true;
+        $scope.gridOptions.data = [];
+    }
+    return isValid;
 }
