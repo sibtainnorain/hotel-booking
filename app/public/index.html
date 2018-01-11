@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/angular-data-grid.bootstrap.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="js/controllers/hotelController.js"></script>
@@ -16,44 +17,32 @@
         <div class="row">
             <h1 class="text-center">Hotel Search</h1>
             <hr>
-            <div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="dateFromFilter">From: </label>
-
-                        <div class="input-group">
-                            <input type="text" id="dateFromFilter" class="form-control" uib-datepicker-popup="dd/MM/yyyy" placeholder="DD/MM/YYYY" max-date="dateTo"
-                                close-text="Close" ng-model="dateFrom" show-weeks="true" is-open="dateFromOpened" ng-click="dateFromOpened = true"
-                                filter-by="from" filter-type="dateFrom" ng-blur="gridActions.filter()" ng-focus="gridActions.filter()"
-                                show-weeks="false" close-text="Close" />
-                            <span class="input-group-btn">
-                                <label for="dateFromFilter" class="btn btn-default">
-                                    <i class="fa fa-calendar"></i>
-                                </label>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="dateToInput">To: </label>
-                        <div class="input-group">
-                            <input type="text" id="dateToInput" class="form-control" uib-datepicker-popup="dd/MM/yyyy" placeholder="DD/MM/YYYY" min-date="dateFrom"
-                                max-date="dateTo" close-text="Close" ng-model="dateTo" show-weeks="true" is-open="dateToOpened"
-                                ng-click="dateToOpened = true" filter-by="to" filter-type="dateTo" ng-blur="gridActions.filter()"
-                                ng-focus="gridActions.filter()" show-weeks="false" close-text="Close">
-                            <span class="input-group-btn">
-                                <label for="dateToInput" class="btn btn-default">
-                                    <i class="fa fa-calendar"></i>
-                                </label>
-                            </span>
-                        </div>
-                    </div>
-                    <div ng-show="dateTo || dateFrom" class="buttons-right">
-                        <a href="" ng-click="dateTo = ''; dateFrom = ''; gridActions.refresh();">Clear Dates</a>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" id="dateFromFilter" class="form-control" uib-datepicker-popup="dd MMMM yyyy" max-date="dateTo" close-text="Close"
+                            ng-model="dateFrom" is-open="dateFromOpened" ng-click="dateFromOpened = true" placeholder="From">
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" id="dateToInput" class="form-control" uib-datepicker-popup="dd MMMM yyyy" min-date="dateFrom" close-text="Close"
+                            ng-model="dateTo" is-open="dateToOpened" ng-click="dateToOpened = true" placeholder="To">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="text-right">
+                        <button class="btn btn-default" sortable="name" ng-click="searchHotels(dateFrom, dateTo)">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="error" class="alert alert-danger">
+            Invalid Date Range Selected.
         </div>
         <hr>
         <div class="row">
@@ -62,7 +51,8 @@
                     <div class="row">
                         <div class="col-md-3">
                             <span class="items">
-                                <strong>Total Nights:</strong></span>
+                                <strong>Total Nights: {{nights}}</strong>
+                            </span>
                         </div>
                         <div class="text-right">
                             <button class="btn btn-default" sortable="name">Sort By Name</button>
@@ -99,13 +89,15 @@
         </div>
     </div>
 </body>
-<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-<script src="https://angular-data-grid.github.io/dist/pagination.js"></script>
-<script src="https://angular-data-grid.github.io/dist/JSONToCSVConvertor.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- load jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 <script src="https://angular-data-grid.github.io/dist/dataGrid.js"></script>
+<script src="moment/moment.min.js"></script>
+<script src="moment/angular-moment.min.js"></script>
 
 </html>
