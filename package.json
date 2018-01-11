@@ -1,0 +1,14 @@
+{
+  "name": "hotel-booking",
+  "version": "1.0.0",
+  "description": "Tajawal Code Challenge.",
+  "main": "server.js",
+  "author": "Sibtain",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.10.8",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0",
+    "request": "^2.83.0"
+  }
+}
