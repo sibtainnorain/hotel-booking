@@ -16,7 +16,7 @@ angular
                 $scope.error = false;
                 $scope.nights = 0;
 
-                if (dateFrom == undefined || dateTo == undefined) {
+                if (!validDates(dateFrom, dateTo)) {
                     $scope.error = true;
                     $scope.gridOptions.data = [];
                     return;
@@ -24,13 +24,7 @@ angular
 
                 let fromFilter = moment(dateFrom);
                 let toFilter = moment(dateTo);
-
-                if (fromFilter.isSame(toFilter) || fromFilter.isAfter(toFilter) || toFilter.isBefore(fromFilter)) {
-                    $scope.error = true;
-                    $scope.gridOptions.data = [];
-                    return;
-                }
-
+                
                 hotelsFactory.getData().then(function (responseData) {
                     hotels = responseData.data.hotels;
 
@@ -46,10 +40,10 @@ angular
 
                             console.log(fromFilter);
                             console.log(availabilityFrom);
-                            
+
                             console.log(toFilter);
                             console.log(availabilityTo);
-                            
+
                             if (fromFilter.isBetween(availabilityFrom, availabilityTo, 'days', '[]') && toFilter.isBetween(availabilityFrom, availabilityTo, 'days', '[]')) {
                                 hotels[i].price = hotels[i].price * $scope.nights;
                                 console.log(j);
@@ -73,3 +67,18 @@ angular
             }
         }
     });
+
+function validDates(dateFrom, dateTo) {
+    if (dateFrom == undefined || dateTo == undefined) {
+        return false;
+    }
+
+    let fromFilter = moment(dateFrom);
+    let toFilter = moment(dateTo);
+
+    if (fromFilter.isSame(toFilter) || fromFilter.isAfter(toFilter) || toFilter.isBefore(fromFilter)) {
+        return false;
+    }
+    
+    return true;
+}
